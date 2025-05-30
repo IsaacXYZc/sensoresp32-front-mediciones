@@ -18,7 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { useToast } from "@/hooks/use-toast"
+import { toast, ToastContainer } from "react-toastify";
 
 interface Medicion {
   fecha_medicion: string
@@ -54,7 +54,6 @@ export default function SensorDashboard() {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [umbralDialogOpen, setUmbralDialogOpen] = useState(false)
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false)
-  const { toast } = useToast()
 
   // URL base del endpoint - ajusta según tu configuración
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/api"
@@ -66,15 +65,20 @@ export default function SensorDashboard() {
       if (!response.ok) throw new Error("Error al obtener mediciones")
       const data = await response.json()
       setMediciones(data)
-      toast({
-        title: "Mediciones actualizadas",
-        description: `Se obtuvieron ${data.length} mediciones`,
-      })
+      toast.success("Mediciones actualizadas correctamente", {
+        position: "top-left",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        });
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "No se pudieron obtener las mediciones",
-        variant: "destructive",
+      toast.error("No se pudieron obtener las mediciones", {
+        position: "top-left",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       })
       console.error("Error:", error)
     } finally {
@@ -89,11 +93,13 @@ export default function SensorDashboard() {
       const data = await response.json()
       setSensores(data)
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "No se pudieron obtener los sensores",
-        variant: "destructive",
-      })
+      toast.error("No se pudieron obtener los sensores", {
+        position: "top-left",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true, 
+        });
       console.error("Error:", error)
     }
   }
@@ -105,7 +111,7 @@ export default function SensorDashboard() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ altura: nuevaAltura }),
+        body: JSON.stringify({ nueva_altura: nuevaAltura }),
       })
 
       if (!response.ok) throw new Error("Error al modificar sensor")
@@ -113,16 +119,21 @@ export default function SensorDashboard() {
       await obtenerSensores()
       setDialogOpen(false)
       setNuevaAltura("")
-      toast({
-        title: "Sensor actualizado",
-        description: `La altura del sensor se actualizó a ${nuevaAltura} cm`,
-      })
+      toast.success(`La altura del sensor se actualizó a ${nuevaAltura} cm`, {
+        position: "top-left",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true, 
+        });
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "No se pudo modificar la altura del sensor",
-        variant: "destructive",
-      })
+      toast.error("No se pudo modificar la altura del sensor", {
+        position: "top-left",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true, 
+        });
       console.error("Error:", error)
     }
   }
@@ -150,15 +161,24 @@ export default function SensorDashboard() {
 
       await obtenerSensores()
       setDialogOpen(false)
-      toast({
-        title: "Umbrales actualizados",
-        description: `Los umbrales del sensor se han actualizado correctamente`,
-      })
+      toast.success(
+        `Umbrales del sensor actualizados: Alto ${alturaAlta} cm, Crítico ${alturaCritica} cm, Correo: ${correoAviso}`,
+        {
+          position: "top-left",
+          autoClose: 3000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true, 
+        }
+      )
+      setUmbralDialogOpen(false)
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "No se pudieron modificar los umbrales del sensor",
-        variant: "destructive",
+      toast.error("No se pudieron modificar los umbrales del sensor", {
+        position: "top-left",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       })
       console.error("Error:", error)
     }
@@ -173,15 +193,23 @@ export default function SensorDashboard() {
       if (!response.ok) throw new Error("Error al limpiar mediciones")
 
       await obtenerMediciones()
-      toast({
-        title: "Mediciones limpiadas",
-        description: `Se han limpiado las mediciones del sensor correctamente`,
-      })
+      toast.success(
+        `Se han limpiado las mediciones del sensor correctamente`,
+        {
+          position: "top-left",
+          autoClose: 3000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true, 
+        }
+      )
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "No se pudieron limpiar las mediciones",
-        variant: "destructive",
+      toast.error("No se pudieron limpiar las medicione", {
+        position: "top-left",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
       })
       console.error("Error:", error)
     }
@@ -208,6 +236,7 @@ export default function SensorDashboard() {
 
   return (
     <div className="container mx-auto p-6 space-y-6">
+      <ToastContainer />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Dashboard de Sensores de Agua</h1>
