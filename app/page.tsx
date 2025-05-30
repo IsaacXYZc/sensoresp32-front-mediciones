@@ -430,7 +430,7 @@ export default function SensorDashboard() {
                           >
                             <DialogTrigger asChild>
                               <Button
-                                variant="secondary"
+                                variant="outline"
                                 size="sm"
                                 onClick={() => {
                                   setSelectedSensor(sensor)
@@ -530,7 +530,7 @@ export default function SensorDashboard() {
                                   setConfirmDialogOpen(true)
                                 }}
                               >
-                                Limpiar
+                                Limpiar mediciones
                               </Button>
                             </DialogTrigger>
                             <DialogContent>
