@@ -319,8 +319,7 @@ export default function SensorDashboard() {
                     <TableHead>Altura Agua</TableHead>
                     <TableHead>Velocidad Subida del Agua</TableHead>
                     <TableHead>Muestras</TableHead>
-                    <TableHead>Promedio Muestras</TableHead>
-                    <TableHead>Distancia con respecto al sensor</TableHead>
+                    <TableHead>Distancia promedio con respecto al sensor</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -355,7 +354,6 @@ export default function SensorDashboard() {
                         </Badge>
                       </TableCell>
                       <TableCell>{medicion.muestras.length} muestras</TableCell>
-                      <TableCell>{calcularPromedio(medicion.muestras)}</TableCell>
                       <TableCell>{medicion.distancia_media} cm</TableCell>
                     </TableRow>
                   ))}
