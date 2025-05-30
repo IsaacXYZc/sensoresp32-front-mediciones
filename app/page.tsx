@@ -239,7 +239,7 @@ export default function SensorDashboard() {
       <ToastContainer />
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold">Dashboard de Sensores de Agua</h1>
+          <h1 className="text-3xl font-bold">Dashboard de Sensores de Agua 💦</h1>
           <p className="text-muted-foreground">Monitoreo en tiempo real de niveles de agua</p>
         </div>
         <Button onClick={obtenerMediciones} disabled={loading}>
@@ -248,7 +248,7 @@ export default function SensorDashboard() {
         </Button>
       </div>
 
-      <Tabs defaultValue="mediciones" className="space-y-4">
+      <Tabs defaultValue="mediciones" className="space-y-4 ">
         <TabsList>
           <TabsTrigger value="mediciones">Mediciones</TabsTrigger>
           <TabsTrigger value="sensores">Gestión de Sensores</TabsTrigger>
